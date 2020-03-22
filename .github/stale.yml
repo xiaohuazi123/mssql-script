@@ -1,0 +1,38 @@
+# Probot Stale configuration file
+
+# Number of days of inactivity before an issue becomes stale
+# 600 is approximately 1 year and 8 months
+daysUntilStale: 30
+
+# Number of days of inactivity before a stale issue is closed
+daysUntilClose: 7
+
+# Issues with these labels will never be considered stale
+exemptLabels:
+  - Confirmed
+  - Release Blocker
+  - Critical
+  - P1
+  - P2
+  - Bug
+  - Feature
+  - Test Failure
+
+# Label to use when marking an issue as stale
+staleLabel: stale
+
+# Comment to post when marking an issue as stale. Set to `false` to disable
+markComment: |
+  这个issue已经自动标记为“过期” ，因为这个issue最近已经没有任何回复，这个issue即将会关闭，感谢您的贡献
+
+  如果这个issue已经永久关闭，请留下你的评论，我们很可能会重新打开这个issue
+
+# Comment to post when removing the stale label. Set to `false` to disable
+unmarkComment: |
+  感谢更新这个issue，本issue将不会标记为“过期”
+
+# Comment to post when closing a stale issue. Set to `false` to disable
+closeComment: false
+
+# Limit to only `issues` or `pulls`
+only: issues
