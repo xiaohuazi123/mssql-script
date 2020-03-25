@@ -1,8 +1,6 @@
 # mssql-script
 mssql脚本汇总
-<p align="center">
-![](https://img.shields.io/badge/language-TSQL-blue.svg)
-</p>
+
 
 汇总这么多年来使用的mssql脚本，迭代了很多次，比较稳定，一直在生产环境使用，每个脚本已经去除敏感信息。
 脚本支持的数据库版本：SQL2008R2 ~SQL2016
