@@ -1,5 +1,10 @@
 # mssql-script
+[![TSQL](https://img.shields.io/badge/language-TSQL-blue.svg)](https://zh.wikipedia.org/wiki/Transact-SQL)
+
+  
+
 mssql脚本汇总
+
 
 
 汇总这么多年来使用的mssql脚本，迭代了很多次，比较稳定，一直在生产环境使用，每个脚本已经去除敏感信息。
