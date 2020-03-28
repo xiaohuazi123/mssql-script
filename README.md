@@ -1,6 +1,6 @@
 # mssql-script
 [![TSQL](https://img.shields.io/badge/language-TSQL-blue.svg "TSQL")](https://zh.wikipedia.org/wiki/Transact-SQL)
-
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/xiaohuazi123/mssql-script/blob/master/LICENSE)
   
 
 mssql脚本汇总
