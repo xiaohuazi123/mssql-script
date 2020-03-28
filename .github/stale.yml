@@ -9,27 +9,18 @@ daysUntilClose: 7
 
 # Issues with these labels will never be considered stale
 exemptLabels:
-  - Confirmed
-  - Release Blocker
-  - Critical
-  - P1
-  - P2
-  - Bug
-  - Feature
-  - Test Failure
+  - pinned
+  - security
+  - bug
+  - enhancement
 
 # Label to use when marking an issue as stale
-staleLabel: stale
+staleLabel: wontfix
 
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: |
-  Õâ¸öissueÒÑ¾­×Ô¶¯±ê¼ÇÎª¡°¹ıÆÚ¡± £¬ÒòÎªÕâ¸öissue×î½üÒÑ¾­Ã»ÓĞÈÎºÎ»Ø¸´£¬Õâ¸öissue¼´½«»á¹Ø±Õ£¬¸ĞĞ»ÄúµÄ¹±Ï×
+    ä½ å·²ç»å¾ˆä¹…æ²¡æœ‰å›å¤è¿™ä¸ªissueäº†ï¼Œå¦‚æœæ²¡æœ‰è¿›ä¸€æ­¥çš„ä¿¡æ¯çš„è¯ï¼Œ ä¼šä½œä¸ºä¸æ´»è·ƒissueå…³é—­ï¼Œ æ„Ÿè°¢ä½ å¯¹æœ¬é¡¹ç›®çš„è´¡çŒ®ã€‚
 
-  Èç¹ûÕâ¸öissueÒÑ¾­ÓÀ¾Ã¹Ø±Õ£¬ÇëÁôÏÂÄãµÄÆÀÂÛ£¬ÎÒÃÇºÜ¿ÉÄÜ»áÖØĞÂ´ò¿ªÕâ¸öissue
-
-# Comment to post when removing the stale label. Set to `false` to disable
-unmarkComment: |
-  ¸ĞĞ»¸üĞÂÕâ¸öissue£¬±¾issue½«²»»á±ê¼ÇÎª¡°¹ıÆÚ¡±
 
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
