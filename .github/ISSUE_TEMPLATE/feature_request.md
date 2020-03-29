@@ -1,5 +1,11 @@
+---
+name: Feature request
+about: '功能建议  '
+title: ''
+labels: ''
+assignees: ''
 
-
+---
 
 name: 功能建议  
 
