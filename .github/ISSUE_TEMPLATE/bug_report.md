@@ -1,13 +1,13 @@
 ---
 name: Bug report
-about: "[简述你遇到的问题]"
+about: "简述你遇到的问题"
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-[简述你遇到的问题]
+简述你遇到的问题
 
 
 
