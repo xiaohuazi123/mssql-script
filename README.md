@@ -1,4 +1,5 @@
 # mssql-script
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ef6bd15e1c57489b8b8a9187255bcdf6)](https://app.codacy.com/manual/xiaohuazi123/mssql-script?utm_source=github.com&utm_medium=referral&utm_content=xiaohuazi123/mssql-script&utm_campaign=Badge_Grade_Dashboard)
 [![TSQL](https://img.shields.io/badge/language-TSQL-blue.svg "TSQL")](https://zh.wikipedia.org/wiki/Transact-SQL)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg "Apache2.0")](https://github.com/xiaohuazi123/mssql-script/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/xiaohuazi123/mssql-script.svg?label=Stars&logo=github "stars")](https://github.com/xiaohuazi123/mssql-script)
