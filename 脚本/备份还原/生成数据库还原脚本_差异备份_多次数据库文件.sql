@@ -13,6 +13,8 @@
 --	  @IsDiffRestore	是否增量还原
 --	  @IsLogRestore		是否日志还原
 --	  @IsMirrorRestore	是否镜像还原，镜像还原时，默认继续增量还原 @IsDifferential = 1
+--    @DBNamerestore    要还原的单个数据库的数据库名
+--    @IsRestoreSingleDB是否还原单个数据库，默认还原所有数据库 @IsRestoreSingleDB = 0
 --	  
 -- 4) 如果处于正在恢复状态的数据库，可以使用 RESTORE LOG [数据库名] WITH RECOVERY
 --	  修改成在线状态
@@ -38,18 +40,26 @@ DECLARE @LogicalName		SYSNAME
 DECLARE @PhycialName		SYSNAME
 DECLARE @BackupName			SYSNAME
 DECLARE @DbNamePrefix		NVARCHAR(32)
+DECLARE @DBNamerestore      NVARCHAR(60)
 
+DECLARE @IsRestoreSingleDB  INT
 DECLARE @IsDifferential		BIT
 DECLARE @IsDiffRestore		BIT
 DECLARE @IsLogRestore		BIT
 DECLARE @IsMirrorRestore	BIT
 
 -- 初始变量，需要目录后面带分隔符： \
-SET @BackupRootDir			=	'''D:\DBBackup\'
-SET @MoveRootDir			=	'''E:\DBBackup\'
+SET @BackupRootDir			=	N'''C:\DBBackup\'
+SET @MoveRootDir			=	N'''C:\DBBackup\'
 
 -- 初始变量
 SET @DbNamePrefix			=	''
+
+-- 是否还原单个数据库
+SET @IsRestoreSingleDB		=	0
+
+-- 要还原的单个数据库的数据库名
+SET @DBNamerestore			=	N'test'
 
 -- 是否继续还原增量: 是 1； 否 0；
 SET @IsDifferential			=	0
@@ -76,12 +86,27 @@ BEGIN
 	PRINT '-- 镜像还原脚本'
 END
 
--- 列表所有数据库
-INSERT INTO @tbDatabases([name])
-	SELECT [name] 
-		FROM master..sysdatabases 
-	WHERE [name] NOT IN('master','tempdb','model','msdb') AND [Name] LIKE @DbNamePrefix+'%' 
-	ORDER BY [name]
+
+IF @IsRestoreSingleDB = 1
+    BEGIN
+		IF NOT EXISTS (   SELECT name  FROM   sys.[databases]  WHERE  name = @DBNamerestore )
+			RETURN;
+		-- 单个数据库
+		INSERT INTO @tbDatabases ( [name] ) SELECT   [name]     FROM     master..sysdatabases
+					WHERE    [name] NOT IN ( 'master', 'tempdb', 'model', 'msdb' )
+							 AND [name] = @DBNamerestore
+					ORDER BY [name];
+    END;
+ELSE
+    BEGIN
+        -- 列表所有数据库
+        INSERT INTO @tbDatabases ( [name] ) SELECT   [name]   FROM     master..sysdatabases
+                    WHERE    [name] NOT IN ( 'master', 'tempdb', 'model', 'msdb' )
+                             AND [name] LIKE @DbNamePrefix + '%'
+                    ORDER BY [name];
+    END;
+
+
 
 DECLARE CUR_DbLogical_Names CURSOR LOCAL FORWARD_ONLY READ_ONLY FOR
 SELECT [name] FROM @tbDatabases ORDER BY [name]
