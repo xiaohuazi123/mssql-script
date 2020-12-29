@@ -10,8 +10,8 @@
 -- 声明变量
 DECLARE
 	@sql AS	NVARCHAR(4000),
-    @dbname  AS NVARCHAR(20),
-	@dbnamePrefix AS NVARCHAR(10);
+    @dbname  AS NVARCHAR(2000),
+	@dbnamePrefix AS NVARCHAR(100);
 
 -- 初始变量
 SET @dbnamePrefix=''
