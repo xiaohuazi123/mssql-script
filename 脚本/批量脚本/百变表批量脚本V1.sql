@@ -1,17 +1,17 @@
 
 -- =============================================
 -- Create date: <2015/2/18>
--- Description: °Ù±ä±íÅúÁ¿½Å±¾
+-- Description: ç™¾å˜è¡¨æ‰¹é‡è„šæœ¬
 -- =============================================
 
-use dbname --¡ïDo ÇĞ»»µ½ÒªÖ´ĞĞµÄÊı¾İ¿â
+use dbname --â˜…Do åˆ‡æ¢åˆ°è¦æ‰§è¡Œçš„æ•°æ®åº“
 GO
 
 DECLARE @fromdb varchar(100)
 DECLARE @todb varchar(100)
 DECLARE @tablename varchar(100)
 DECLARE @sql nvarchar(max)
-SET @todb = 'dbname'  --¡ïDo 
+SET @todb = 'dbname'  --â˜…Do 
 
 PRINT ('USE ['+@todb+']' +CHAR(10)+'GO'+CHAR(10))
 
@@ -25,7 +25,7 @@ FETCH NEXT FROM @itemCur INTO @tablename
 WHILE @@FETCH_STATUS=0
 BEGIN
 	PRINT ('--'+@tablename)
-	SET @sql = 'truncate table ['+@todb+'].[dbo].['+@tablename+']' --¡ïDo ¸ù¾İÒªÖ´ĞĞµÄÃüÁîĞŞ¸Ä
+	SET @sql = 'truncate table ['+@todb+'].[dbo].['+@tablename+']' --â˜…Do æ ¹æ®è¦æ‰§è¡Œçš„å‘½ä»¤ä¿®æ”¹
 	PRINT(@sql)PRINT('GO')+CHAR(13)
 
     FETCH NEXT FROM @itemCur INTO @tablename

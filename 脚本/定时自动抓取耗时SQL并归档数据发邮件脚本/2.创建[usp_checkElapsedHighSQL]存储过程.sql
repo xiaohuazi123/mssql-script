@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
---´´½¨´æ´¢¹ı³Ì
+--åˆ›å»ºå­˜å‚¨è¿‡ç¨‹
 CREATE  PROCEDURE [dbo].[usp_checkElapsedHighSQL] ( @SessionID INT )
 AS
     BEGIN
@@ -64,17 +64,17 @@ AS
                       planstmttext NVARCHAR(MAX)
                     )
 
-                SELECT  @Duration = 10000  --¡ïDo -- in milliseconds, 10000 = 10 sec
+                SELECT  @Duration = 10000  --â˜…Do -- in milliseconds, 10000 = 10 sec
 
 
 
                 IF OBJECT_ID('tempdb..#ElapsedHigh') IS NOT NULL
                     BEGIN
-                        DROP TABLE [#ElapsedHigh]  --É¾³ıÁÙÊ±±í  
+                        DROP TABLE [#ElapsedHigh]  --åˆ é™¤ä¸´æ—¶è¡¨  
                     END 
 
 
---½¨ÁÙÊ±±í
+--å»ºä¸´æ—¶è¡¨
                 CREATE TABLE [#ElapsedHigh]
                     (
                       [SPID] SMALLINT ,
@@ -106,7 +106,7 @@ AS
 
 
 
---´¦ÀíÂß¼­
+--å¤„ç†é€»è¾‘
                 INSERT  INTO [#ElapsedHigh]
                         ( [SPID] ,
                           [BlkBy] ,
@@ -135,7 +135,7 @@ AS
                         )
                         EXEC [MonitorElapsedHighSQL].[dbo].[sp_who3]
 
-        --Èç¹û´«ÈëµÄÊÇ»á»°ID Ö»ÏÔÊ¾ËùÔÚ»á»°IDµÄĞÅÏ¢
+        --å¦‚æœä¼ å…¥çš„æ˜¯ä¼šè¯ID åªæ˜¾ç¤ºæ‰€åœ¨ä¼šè¯IDçš„ä¿¡æ¯
                 IF ( @SessionID IS NOT NULL AND @SessionID <> 0 )
                     BEGIN 
 
@@ -192,7 +192,7 @@ INSERT @paramtb ( [paramlist], [planstmttext] )
 
                     END
                 ELSE
-        --Èç¹ûÃ»ÓĞ¶Ô´æ´¢¹ı³Ì´«Èë²ÎÊı£¬ÄÇÃ´ÏÔÊ¾ºÄÊ±×î¶àµÄÄÇÌõSQLµÄĞÅÏ¢
+        --å¦‚æœæ²¡æœ‰å¯¹å­˜å‚¨è¿‡ç¨‹ä¼ å…¥å‚æ•°ï¼Œé‚£ä¹ˆæ˜¾ç¤ºè€—æ—¶æœ€å¤šçš„é‚£æ¡SQLçš„ä¿¡æ¯
                     BEGIN 
 
                         SELECT TOP 1
@@ -209,7 +209,7 @@ INSERT @paramtb ( [paramlist], [planstmttext] )
 
 
 
---×¥È¡Õ¼ÓÃÊ±¼ä³¤µÄSQL
+--æŠ“å–å ç”¨æ—¶é—´é•¿çš„SQL
                         IF ( @ElapsedMS > @Duration )
                             BEGIN 
                                 SELECT  @now = GETDATE()

@@ -2,7 +2,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: Í³¼Æ¸÷¸öÊý¾Ý¿âµÄ×Ü´óÐ¡V2 ²»°üº¬ÊÂÎñÈÕÖ¾ÎÄ¼þ
+-- Description: ç»Ÿè®¡å„ä¸ªæ•°æ®åº“çš„æ€»å¤§å°V2 ä¸åŒ…å«äº‹åŠ¡æ—¥å¿—æ–‡ä»¶
 -- =============================================
 
 
@@ -17,7 +17,7 @@ DECLARE @SQL NVARCHAR(MAX)
 
 
 
---ÁÙÊ±±í±£´æÊý¾Ý
+--ä¸´æ—¶è¡¨ä¿å­˜æ•°æ®
 CREATE TABLE #DataBaseServerData
 (
   ID INT IDENTITY(1, 1) ,
@@ -28,7 +28,7 @@ CREATE TABLE #DataBaseServerData
 
 
 
---ÓÎ±ê
+--æ¸¸æ ‡
 DECLARE @itemCur CURSOR
 SET 
 @itemCur = CURSOR FOR 

@@ -1,12 +1,12 @@
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ÅúÁ¿ÍêÕû±¸·İ¿â
+-- Description: æ‰¹é‡å®Œæ•´å¤‡ä»½åº“
 -- =============================================
 DECLARE @DBNAME NVARCHAR(100)
 DECLARE @DriveName NVARCHAR(100)
 DECLARE @SQL NVARCHAR(MAX)
 
-SET @DriveName='D'  --¡ïDo ±¸·İµ½µÄÅÌ·û
+SET @DriveName='D'  --â˜…Do å¤‡ä»½åˆ°çš„ç›˜ç¬¦
 
 PRINT 'DECLARE @CurrentTime VARCHAR(50), @FileName VARCHAR(200)'+CHAR(10)+
 'SET @CurrentTime = REPLACE(REPLACE(REPLACE(CONVERT(VARCHAR, GETDATE(), 120 ),''-'',''_''),'' '',''_''),'':'','''')'
@@ -26,8 +26,8 @@ WHILE @@FETCH_STATUS = 0
     BEGIN  
         SET @SQL = N'
         
---('+@DBNAME+' Êı¾İ¿âÍêÕû±¸·İ)
-SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_FullBackup_'' + @CurrentTime+''.bak''  --¡ïDo Â·¾¶ÒªÔ¤ÏÈ½¨ºÃ
+--('+@DBNAME+' æ•°æ®åº“å®Œæ•´å¤‡ä»½)
+SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_FullBackup_'' + @CurrentTime+''.bak''  --â˜…Do è·¯å¾„è¦é¢„å…ˆå»ºå¥½
 BACKUP DATABASE [' + @DBNAME + ']
 TO DISK=@FileName WITH FORMAT ,COMPRESSION,stats=5
 '

@@ -1,13 +1,13 @@
 USE [MonitorElapsedHighSQL]
 GO
---ÖØÉèElapsedHigh±íÃû£¬½øÐÐ¹éµµ
+--é‡è®¾ElapsedHighè¡¨åï¼Œè¿›è¡Œå½’æ¡£
 CREATE  PROCEDURE [dbo].[usp_Resettbname]
 AS
     BEGIN
        
          IF EXISTS ( SELECT  OBJECT_ID('MonitorElapsedHighSQL.dbo.ElapsedHigh') )
             BEGIN
-               --killµôÊý¾Ý¿âËùÓÐÁ¬½Ó
+               --killæŽ‰æ•°æ®åº“æ‰€æœ‰è¿žæŽ¥
                 DECLARE @DBNAME NVARCHAR(100)
                 DECLARE @SQL NVARCHAR(MAX)
                 DECLARE @SPID NVARCHAR(100)
@@ -30,7 +30,7 @@ AS
 
                 WHILE @@FETCH_STATUS = 0
                     BEGIN  
-        --kill process ²»killµô±¾´æ´¢¹ý³ÌµÄspid
+        --kill process ä¸killæŽ‰æœ¬å­˜å‚¨è¿‡ç¨‹çš„spid
                         IF ( @SPID <> @OwnSPID )
                             BEGIN
                                 SET @SQL = N'kill ' + @SPID

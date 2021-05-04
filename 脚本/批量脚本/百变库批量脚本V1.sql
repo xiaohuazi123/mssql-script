@@ -1,7 +1,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: �ٱ�������ű�
+-- Description: 百变库批量脚本
 -- =============================================
 DECLARE @DBNAME NVARCHAR(100)
 DECLARE @SQL NVARCHAR(MAX)
@@ -19,7 +19,7 @@ FETCH NEXT FROM CurDBName INTO @DBNAME
 
 WHILE @@FETCH_STATUS = 0
     BEGIN  
-        SET @SQL = N' ALTER DATABASE ['+@DBNAME+'] SET RECOVERY SIMPLE'  --��Do ����Ҫִ�е������޸�
+        SET @SQL = N' ALTER DATABASE ['+@DBNAME+'] SET RECOVERY SIMPLE'  --★Do 根据要执行的命令修改
         PRINT(@SQL)
         FETCH NEXT FROM CurDBName INTO @DBNAME
     END

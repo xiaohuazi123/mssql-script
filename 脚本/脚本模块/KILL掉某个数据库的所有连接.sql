@@ -3,14 +3,14 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: KILLµôÄ³¸öÊý¾Ý¿âµÄËùÓÐÁ¬½Ó
+-- Description: KILLæŽ‰æŸä¸ªæ•°æ®åº“çš„æ‰€æœ‰è¿žæŽ¥
 -- =============================================
 
 DECLARE @DBNAME NVARCHAR(100)
 DECLARE @SQL NVARCHAR(MAX)
 DECLARE @SPID NVARCHAR(100)
 
-SET @DBNAME='dbname'  --¡ïDo ÒªkillµôÁ¬½ÓµÄÊý¾Ý¿âÃû
+SET @DBNAME='dbname'  --â˜…Do è¦killæŽ‰è¿žæŽ¥çš„æ•°æ®åº“å
 
 
 DECLARE CurDBName CURSOR

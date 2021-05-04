@@ -7,7 +7,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
---´´½¨´æ´¢¹ı³Ì
+--åˆ›å»ºå­˜å‚¨è¿‡ç¨‹
 CREATE   PROCEDURE [dbo].[usp_StatisticsTask]
 AS
     BEGIN
@@ -29,7 +29,7 @@ AS
             END
         ELSE
             BEGIN
-                --×îºÄÊ±SQL
+                --æœ€è€—æ—¶SQL
                 INSERT  INTO [dbo].[MostElapsedStatisticsByDay]
                         ( [ElapsedMS] ,
                           [IOReads] ,
@@ -63,7 +63,7 @@ AS
 
 
 
---¶ÁIO×î¶àSQL
+--è¯»IOæœ€å¤šSQL
                 INSERT  INTO [dbo].[MostIOReadStatisticsByDay]
                         ( [IOReads] ,
                           [DBName] ,
@@ -93,7 +93,7 @@ AS
 
 
 
---Ğ´IO×î¶àSQL
+--å†™IOæœ€å¤šSQL
                 INSERT  INTO [dbo].[MostIOWriteStatisticsByDay]
                         ( [IOWrites] ,
                           [DBName] ,
@@ -123,7 +123,7 @@ AS
 
 
 
---Í³¼Æsp_executesql´ÎÊı
+--ç»Ÿè®¡sp_executesqlæ¬¡æ•°
                 DECLARE @tbsp_executesqlCountStatisticsByDay TABLE
                     (
                       [DBName] [nvarchar](128) ,
@@ -166,7 +166,7 @@ AS
 
 
 
---Í³¼ÆÒ»¹²ÓĞ¶àÉÙSQL±»×¥È¡
+--ç»Ÿè®¡ä¸€å…±æœ‰å¤šå°‘SQLè¢«æŠ“å–
                 INSERT  INTO [dbo].[SQLCountStatisticsByDay]
                         ( [SQLCount] ,
                           [gettime]

@@ -1,7 +1,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ÅúÁ¿KILLµôÊı¾İ¿âµÄËùÓĞÁ¬½Ó
+-- Description: æ‰¹é‡KILLæ‰æ•°æ®åº“çš„æ‰€æœ‰è¿æ¥
 -- =============================================
 
 
@@ -14,7 +14,7 @@ DECLARE CurDBName CURSOR
 FOR
     SELECT  [spid]
     FROM    sys.sysprocesses WHERE [spid]>=50 
-    AND   DB_NAME(DBID) LIKE '%dbname%'  --¡ïDo ÒªkillÁ¬½ÓµÄÊı¾İ¿â
+    AND   DB_NAME(DBID) LIKE '%dbname%'  --â˜…Do è¦killè¿æ¥çš„æ•°æ®åº“
 
 OPEN CurDBName
 FETCH NEXT FROM CurDBName INTO @SPID

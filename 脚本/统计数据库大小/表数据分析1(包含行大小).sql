@@ -2,7 +2,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ±íÊı¾İÁ¿·ÖÎö
+-- Description: è¡¨æ•°æ®é‡åˆ†æ
 -- =============================================
 
 
@@ -41,7 +41,7 @@ WHILE @@FETCH_STATUS = 0
 CLOSE Info_cursor  
 DEALLOCATE Info_cursor  
  
---´´½¨ÁÙÊ±±í
+--åˆ›å»ºä¸´æ—¶è¡¨
 CREATE TABLE [#tmptb]
     (
       TableName VARCHAR(50) ,
@@ -53,7 +53,7 @@ CREATE TABLE [#tmptb]
                        END ) PERSISTED
     )
 
---²åÈëÊı¾İµ½ÁÙÊ±±í
+--æ’å…¥æ•°æ®åˆ°ä¸´æ—¶è¡¨
 INSERT  INTO [#tmptb]
         ( [TableName] ,
           [DataInfo] ,
@@ -66,9 +66,9 @@ INSERT  INTO [#tmptb]
         ORDER BY CAST(REPLACE(reserved, 'KB', '') AS BIGINT) DESC  
 
 
---»ã×Ü¼ÇÂ¼
+--æ±‡æ€»è®°å½•
 SELECT  [tbspinfo].* ,
-        [tmptb].[Spaceperrow] AS 'Ã¿ĞĞ¼ÇÂ¼´ó¸ÅÕ¼ÓÃ¿Õ¼ä£¨KB£©'
+        [tmptb].[Spaceperrow] AS 'æ¯è¡Œè®°å½•å¤§æ¦‚å ç”¨ç©ºé—´ï¼ˆKBï¼‰'
 FROM    [#tablespaceinfo] AS tbspinfo ,
         [#tmptb] AS tmptb
 WHERE   [tbspinfo].[nameinfo] = [tmptb].[TableName]

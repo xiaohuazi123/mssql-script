@@ -1,12 +1,12 @@
 USE [MonitorElapsedHighSQL]
 GO
 
---¶ÔÍ³¼ÆÊı¾İ¶¨Ê±·¢ÓÊ¼ş
+--å¯¹ç»Ÿè®¡æ•°æ®å®šæ—¶å‘é‚®ä»¶
 CREATE  PROCEDURE [dbo].[usp_SendStatisticsMail]
 AS
     BEGIN
        
-        --¶¨Òå±äÁ¿
+        --å®šä¹‰å˜é‡
         DECLARE @SQL NVARCHAR(MAX)
         DECLARE @SQLConcat NVARCHAR(MAX)
         DECLARE @infoConcat NVARCHAR(MAX)
@@ -21,18 +21,18 @@ AS
         DECLARE @uptime NVARCHAR(200)
 
 
-        --1.Êı¾İ¿â°æ±¾ĞÅÏ¢
+        --1.æ•°æ®åº“ç‰ˆæœ¬ä¿¡æ¯
         SELECT  @sqlversion = @@version
 
 
-        --2.Êı¾İ¿â·şÎñÆ÷ÒÑÔËĞĞÊ±¼äĞÅÏ¢
+        --2.æ•°æ®åº“æœåŠ¡å™¨å·²è¿è¡Œæ—¶é—´ä¿¡æ¯
         SELECT  @uptime = CONVERT(NVARCHAR(200), DATEDIFF(DAY, sqlserver_start_time, GETDATE()))
         FROM    sys.dm_os_sys_info WITH ( NOLOCK )
         OPTION  ( RECOMPILE )
 
 
 
-        --3.²é¿´Êı¾İ¿â·şÎñÆ÷Ãû
+        --3.æŸ¥çœ‹æ•°æ®åº“æœåŠ¡å™¨å
         SELECT  @servername = LTRIM(@@servername)
 
 
@@ -45,32 +45,32 @@ AS
 
         IF ( @servername IS NOT NULL AND @servername <> '' )
             BEGIN
-                SET @infoConcat = '<h3><font color="#FF0000">Ö÷»úÃû£º' + @ServerName + '</font></h3></br>'
+                SET @infoConcat = '<h3><font color="#FF0000">ä¸»æœºåï¼š' + @ServerName + '</font></h3></br>'
             END
 
         IF ( @uptime IS NOT NULL  AND @uptime <> '' )
             BEGIN
-                SET @infoConcat = @infoConcat + '<h4>Êı¾İ¿â·şÎñÆ÷ÒÑÔËĞĞÌìÊı£º' + @uptime  + 'Ìì</h4></br>' 
+                SET @infoConcat = @infoConcat + '<h4>æ•°æ®åº“æœåŠ¡å™¨å·²è¿è¡Œå¤©æ•°ï¼š' + @uptime  + 'å¤©</h4></br>' 
             END
 
         IF ( @sqlversion IS NOT NULL AND @sqlversion <> '' )
             BEGIN
-                SET @infoConcat = @infoConcat + '<h4>Êı¾İ¿â°æ±¾ĞÅÏ¢£º' + @sqlversion + '</h4></br>'
+                SET @infoConcat = @infoConcat + '<h4>æ•°æ®åº“ç‰ˆæœ¬ä¿¡æ¯ï¼š' + @sqlversion + '</h4></br>'
             END
 
 
       -----------------------------------------------------------
 
 
-        SET @SQL = N'<H3>[' + @servername + ']_Ç°5Ìõ²»Í¬µÄ×îºÄÊ±SQL ±íÃû£º[MostElapsedStatisticsByDay] ------   ÓÊ¼ş·¢³öÊ±¼ä£º' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
+        SET @SQL = N'<H3>[' + @servername + ']_å‰5æ¡ä¸åŒçš„æœ€è€—æ—¶SQL è¡¨åï¼š[MostElapsedStatisticsByDay] ------   é‚®ä»¶å‘å‡ºæ—¶é—´ï¼š' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
             + '<table border="1">' + N'<tr>
 <th>[id]</th>
-<th>[ºÄÊ±]</th>
-<th>[IO¶Á´ÎÊı]</th>
-<th>[IOĞ´´ÎÊı]</th>
-<th>[Êı¾İ¿âÃû³Æ]</th>
-<th>[Ö´ĞĞ¼Æ»®SQL]</th>
-<th>[ÈÕÆÚ]</th>
+<th>[è€—æ—¶]</th>
+<th>[IOè¯»æ¬¡æ•°]</th>
+<th>[IOå†™æ¬¡æ•°]</th>
+<th>[æ•°æ®åº“åç§°]</th>
+<th>[æ‰§è¡Œè®¡åˆ’SQL]</th>
+<th>[æ—¥æœŸ]</th>
 </tr>' + CAST(( SELECT TOP 5
                         [id] AS 'td' ,
                         '' ,
@@ -110,13 +110,13 @@ AS
 
 
 
-        SET @SQL = N'<H3>[' + @servername + ']_Ç°5ÌõI/O read×î¶àµÄSQL ±íÃû£º[MostIOReadStatisticsByDay]------   ÓÊ¼ş·¢³öÊ±¼ä£º' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
+        SET @SQL = N'<H3>[' + @servername + ']_å‰5æ¡I/O readæœ€å¤šçš„SQL è¡¨åï¼š[MostIOReadStatisticsByDay]------   é‚®ä»¶å‘å‡ºæ—¶é—´ï¼š' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
             + '<table border="1">' + N'<tr>
 <th>[id]</th>
-<th>[IO¶Á´ÎÊı]</th>
-<th>[Êı¾İ¿âÃû³Æ]</th>
-<th>[Ö´ĞĞ¼Æ»®SQL]</th>
-<th>[ÈÕÆÚ]</th>
+<th>[IOè¯»æ¬¡æ•°]</th>
+<th>[æ•°æ®åº“åç§°]</th>
+<th>[æ‰§è¡Œè®¡åˆ’SQL]</th>
+<th>[æ—¥æœŸ]</th>
 </tr>' + CAST(( SELECT TOP 5
                         [id] AS 'td' ,
                         '' ,
@@ -150,13 +150,13 @@ AS
 
 
 
-        SET @SQL = N'<H3>[' + @servername + ']_Ç°5ÌõI/O write×î¶àµÄSQL ±íÃû£º[MostIOWriteStatisticsByDay]------   ÓÊ¼ş·¢³öÊ±¼ä£º'+ CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
+        SET @SQL = N'<H3>[' + @servername + ']_å‰5æ¡I/O writeæœ€å¤šçš„SQL è¡¨åï¼š[MostIOWriteStatisticsByDay]------   é‚®ä»¶å‘å‡ºæ—¶é—´ï¼š'+ CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
             + '<table border="1">' + N'<tr>
 <th>[id]</th>
-<th>[IOĞ´´ÎÊı]</th>
-<th>[Êı¾İ¿âÃû³Æ]</th>
-<th>[Ö´ĞĞ¼Æ»®SQL]</th>
-<th>[ÈÕÆÚ]</th>
+<th>[IOå†™æ¬¡æ•°]</th>
+<th>[æ•°æ®åº“åç§°]</th>
+<th>[æ‰§è¡Œè®¡åˆ’SQL]</th>
+<th>[æ—¥æœŸ]</th>
 </tr>' + CAST(( SELECT TOP 5
                         [id] AS 'td' ,
                         '' ,
@@ -191,13 +191,13 @@ AS
 
 
 
-        SET @SQL = N'<H3>[' + @servername + ']_Ç°5ÌõÊ¹ÓÃsp_executesqlÖ´ĞĞµÄSQL ±íÃû£º[sp_executesqlCountStatisticsByDay]------   ÓÊ¼ş·¢³öÊ±¼ä£º'+ CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
+        SET @SQL = N'<H3>[' + @servername + ']_å‰5æ¡ä½¿ç”¨sp_executesqlæ‰§è¡Œçš„SQL è¡¨åï¼š[sp_executesqlCountStatisticsByDay]------   é‚®ä»¶å‘å‡ºæ—¶é—´ï¼š'+ CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
             + '<table border="1">' + N'<tr>
 <th>[id]</th>
-<th>[sp_executesqlµ÷ÓÃ´ÎÊı]</th>
-<th>[Êı¾İ¿âÃû³Æ]</th>
-<th>[Ö´ĞĞ¼Æ»®SQL]</th>
-<th>[ÈÕÆÚ]</th>
+<th>[sp_executesqlè°ƒç”¨æ¬¡æ•°]</th>
+<th>[æ•°æ®åº“åç§°]</th>
+<th>[æ‰§è¡Œè®¡åˆ’SQL]</th>
+<th>[æ—¥æœŸ]</th>
 </tr>' + CAST(( SELECT TOP 5
                         [id] AS 'td' ,
                         '' ,
@@ -228,11 +228,11 @@ AS
 
 --      --------------------------------------------------------
         
-        SET @SQL = N'<H3>[' + @servername+ ']_SQLÓï¾äÊıÁ¿ ±íÃû£º[SQLCountStatisticsByDay]------   ÓÊ¼ş·¢³öÊ±¼ä£º' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
+        SET @SQL = N'<H3>[' + @servername+ ']_SQLè¯­å¥æ•°é‡ è¡¨åï¼š[SQLCountStatisticsByDay]------   é‚®ä»¶å‘å‡ºæ—¶é—´ï¼š' + CONVERT(NVARCHAR(200), @date, 120) + '</H3>'
             + '<table border="1">' + N'<tr>
 <th>[id]</th>
-<th>[SQLÊıÁ¿]</th>
-<th>[ÈÕÆÚ]</th>
+<th>[SQLæ•°é‡]</th>
+<th>[æ—¥æœŸ]</th>
 </tr>' + CAST(( SELECT  [id] AS 'td' ,
                         '' ,
                         [SQLCount] AS 'td' ,
@@ -261,9 +261,9 @@ AS
             BEGIN
                 SET @finalSQL = @infoConcat + '</br></br>' + @SQLConcat
                 EXEC [msdb].[dbo].[sp_send_dbmail] @profile_name = 'SQLServer',
-                    @recipients = 'dba@xx.com', -- varchar(max) --ÊÕ¼şÈË
-                    @subject = N'SQL Server ÊµÀıSQLÓï¾ä×¥È¡Í³¼ÆĞÅÏ¢', -- nvarchar(255) ±êÌâ
-                    @body_format = 'HTML', -- varchar(20) ÕıÎÄ¸ñÊ½¿ÉÑ¡Öµ£ºtext html
+                    @recipients = 'dba@xx.com', -- varchar(max) --æ”¶ä»¶äºº
+                    @subject = N'SQL Server å®ä¾‹SQLè¯­å¥æŠ“å–ç»Ÿè®¡ä¿¡æ¯', -- nvarchar(255) æ ‡é¢˜
+                    @body_format = 'HTML', -- varchar(20) æ­£æ–‡æ ¼å¼å¯é€‰å€¼ï¼štext html
                     @body = @finalSQL
             END
 

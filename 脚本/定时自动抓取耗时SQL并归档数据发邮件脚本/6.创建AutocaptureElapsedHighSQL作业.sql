@@ -1,10 +1,10 @@
 USE [msdb]
 GO
-/****** 对象:  Job [自动抓取耗时SQL]    脚本日期: 07/29/2014 15:44:57 ******/
+/****** 瀵硅薄:  Job [鑷姩鎶撳彇鑰楁椂SQL]    鑴氭湰鏃ユ湡: 07/29/2014 15:44:57 ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** 对象:  JobCategory [[Uncategorized (Local)]]]    脚本日期: 07/29/2014 15:44:57 ******/
+/****** 瀵硅薄:  JobCategory [[Uncategorized (Local)]]]    鑴氭湰鏃ユ湡: 07/29/2014 15:44:57 ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'[Uncategorized (Local)]'
@@ -20,11 +20,11 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'AutocaptureElapsedHighSQL',
         @notify_level_netsend=0, 
         @notify_level_page=0, 
         @delete_level=0, 
-        @description=N'自动抓取耗时SQL', 
+        @description=N'鑷姩鎶撳彇鑰楁椂SQL', 
         @category_name=N'[Uncategorized (Local)]', 
         @owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** 对象:  Step [execute usp_checkElapsedHighSQL script]    脚本日期: 07/29/2014 15:44:58 ******/
+/****** 瀵硅薄:  Step [execute usp_checkElapsedHighSQL script]    鑴氭湰鏃ユ湡: 07/29/2014 15:44:58 ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep  @job_name=N'AutocaptureElapsedHighSQL', @step_name=N'execute usp_checkElapsedHighSQL script', 
         @step_id=1, 
         @cmdexec_success_code=0, 
@@ -35,7 +35,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep  @job_name=N'AutocaptureElapsedHighSQ
         @retry_attempts=0, 
         @retry_interval=0, 
         @os_run_priority=0, @subsystem=N'TSQL', 
-        @command=N'exec [dbo].[usp_checkElapsedHighSQL] null',  --调用存储过程
+        @command=N'exec [dbo].[usp_checkElapsedHighSQL] null',  --璋冪敤瀛樺偍杩囩▼
         @database_name=N'MonitorElapsedHighSQL', 
         @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -46,7 +46,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_name=N'AutocaptureElapsedHig
         @freq_type=4, 
         @freq_interval=1, 
         @freq_subday_type=4, 
-        @freq_subday_interval=1, --每一分钟抓取一次耗时SQL
+        @freq_subday_interval=1, --姣忎竴鍒嗛挓鎶撳彇涓�娆¤�楁椂SQL
         @freq_relative_interval=0, 
         @freq_recurrence_factor=0, 
         @active_start_date=20110224, 

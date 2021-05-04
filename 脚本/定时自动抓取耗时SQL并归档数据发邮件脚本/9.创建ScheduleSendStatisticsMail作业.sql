@@ -1,10 +1,10 @@
 USE [msdb]
 GO
-/****** ¶ÔÏó:  Job [¶¨Ê±·¢Í³¼ÆÓÊ¼ş]    ½Å±¾ÈÕÆÚ: 07/29/2014 15:44:57 ******/
+/****** å¯¹è±¡:  Job [å®šæ—¶å‘ç»Ÿè®¡é‚®ä»¶]    è„šæœ¬æ—¥æœŸ: 07/29/2014 15:44:57 ******/
 BEGIN TRANSACTION
 DECLARE @ReturnCode INT
 SELECT @ReturnCode = 0
-/****** ¶ÔÏó:  JobCategory [[Uncategorized (Local)]]]    ½Å±¾ÈÕÆÚ: 07/29/2014 15:44:57 ******/
+/****** å¯¹è±¡:  JobCategory [[Uncategorized (Local)]]]    è„šæœ¬æ—¥æœŸ: 07/29/2014 15:44:57 ******/
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
 BEGIN
 EXEC @ReturnCode = msdb.dbo.sp_add_category @class=N'JOB', @type=N'LOCAL', @name=N'[Uncategorized (Local)]'
@@ -20,11 +20,11 @@ EXEC @ReturnCode =  msdb.dbo.sp_add_job @job_name=N'ScheduleSendStatisticsMail',
         @notify_level_netsend=0, 
         @notify_level_page=0, 
         @delete_level=0, 
-        @description=N'¶¨Ê±·¢Í³¼ÆÓÊ¼ş', 
+        @description=N'å®šæ—¶å‘ç»Ÿè®¡é‚®ä»¶', 
         @category_name=N'[Uncategorized (Local)]',  
         @owner_login_name=N'sa', @job_id = @jobId OUTPUT
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
-/****** ¶ÔÏó:  Step [execute usp_checkElapsedHighSQL script]    ½Å±¾ÈÕÆÚ: 07/29/2014 15:44:58 ******/
+/****** å¯¹è±¡:  Step [execute usp_checkElapsedHighSQL script]    è„šæœ¬æ—¥æœŸ: 07/29/2014 15:44:58 ******/
 EXEC @ReturnCode = msdb.dbo.sp_add_jobstep  @job_name=N'ScheduleSendStatisticsMail', @step_name=N'execute usp_SendStatisticsMail script', 
         @step_id=1, 
         @cmdexec_success_code=0, 
@@ -35,7 +35,7 @@ EXEC @ReturnCode = msdb.dbo.sp_add_jobstep  @job_name=N'ScheduleSendStatisticsMa
         @retry_attempts=0, 
         @retry_interval=0, 
         @os_run_priority=0, @subsystem=N'TSQL', 
-        @command=N'exec  [dbo].[usp_SendStatisticsMail]',  --µ÷ÓÃ´æ´¢¹ı³Ì
+        @command=N'exec  [dbo].[usp_SendStatisticsMail]',  --è°ƒç”¨å­˜å‚¨è¿‡ç¨‹
         @database_name=N'MonitorElapsedHighSQL', 
         @flags=0
 IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback

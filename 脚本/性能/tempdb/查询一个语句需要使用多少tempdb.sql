@@ -1,7 +1,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: 使用tempdb空间最多的语句
+-- Description: 浣跨敤tempdb绌洪棿鏈�澶氱殑璇彞
 -- =============================================
 
 DECLARE @read   BIGINT, 
@@ -14,7 +14,7 @@ JOIN    sys.dm_io_virtual_file_stats(2, NULL) AS FS
         ON FS.file_id = DBF.file_id
 WHERE   DBF.type_desc = 'ROWS'
 
---这里放入需要测量的语句
+--杩欓噷鏀惧叆闇�瑕佹祴閲忕殑璇彞
 
 SELECT  tempdb_read_MB = (SUM(num_of_bytes_read) - @read) / 1024. / 1024., 
         tempdb_write_MB = (SUM(num_of_bytes_written) - @write) / 1024. / 1024.,
