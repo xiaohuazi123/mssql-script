@@ -2,10 +2,13 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ±¸¿âµÄÓ¦ÓÃredo logµÄ¶ÓÁÐ³¤¶È
+-- Description: å¤‡åº“çš„åº”ç”¨redo logçš„é˜Ÿåˆ—é•¿åº¦
 -- =============================================
 
-BEGIN TRANDECLARE @value INTDECLARE @value2 INTSELECT  @value = CONVERT(INT, cntr_value)
+BEGIN TRAN
+DECLARE @value INT
+DECLARE @value2 INT
+SELECT  @value = CONVERT(INT, cntr_value)
 FROM    sys.dm_os_performance_counters
 WHERE   counter_name = 'Redo Queue KB'
         AND instance_name = '***'

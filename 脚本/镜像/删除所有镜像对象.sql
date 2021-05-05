@@ -1,40 +1,40 @@
 
 -- =============================================
 -- Create date: <2016/9/18>
--- Description: ³¹µ×Çå³ı¾µÏñ»·¾³
+-- Description: å½»åº•æ¸…é™¤é•œåƒç¯å¢ƒ
 -- =============================================
 USE master;
 GO
 
 
 
---É¾³ı¾µÏñ¶Ëµã
+--åˆ é™¤é•œåƒç«¯ç‚¹
 select * from sys.endpoints
 drop endpoint Endpoint_Mirroring
 
--- É¾³ı¾µÏñÖ¤Êé
+-- åˆ é™¤é•œåƒè¯ä¹¦
 select * from sys.certificates
 drop certificate HOST_A_cert
 drop certificate HOST_B_cert
 
---É¾³ımaster key
+--åˆ é™¤master key
 select * from sys.symmetric_keys
 drop master key
 
---É¾³ıµÇÂ½Ãû
+--åˆ é™¤ç™»é™†å
 select * from sys.syslogins
 drop login HOST_B_login
 
---É¾³ıµÇÂ½ÓÃ»§
+--åˆ é™¤ç™»é™†ç”¨æˆ·
 select * from sys.sysusers
 --drop user HOST_A_user
 drop user HOST_B_user
 
 
---É¾³ı¾µÏñ
+--åˆ é™¤é•œåƒ
 alter database <dbname> set partner off
 
---ĞŞ¸ÄÊı¾İ¿â»¹Ô­ÀàĞÍ£¨norecovery Ò»Ö±µÈ´ı»¹Ô­£©
+--ä¿®æ”¹æ•°æ®åº“è¿˜åŸç±»å‹ï¼ˆnorecovery ä¸€ç›´ç­‰å¾…è¿˜åŸï¼‰
 restore database <dbname> with recovery
 
 

@@ -1,13 +1,13 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ≈˙¡ø≤Ó“Ï±∏∑›ø‚
+-- Description: ÊâπÈáèÂ∑ÆÂºÇÂ§á‰ªΩÂ∫ì
 -- =============================================
 DECLARE @DBNAME NVARCHAR(100)
 DECLARE @DriveName NVARCHAR(100)
 DECLARE @SQL NVARCHAR(MAX)
 
-SET @DriveName='D'   --°ÔDo ±∏∑›µΩµƒ≈Ã∑˚
+SET @DriveName='D'   --‚òÖDo Â§á‰ªΩÂà∞ÁöÑÁõòÁ¨¶
 
 PRINT 'DECLARE @CurrentTime VARCHAR(50), @FileName VARCHAR(200)'+CHAR(10)+
 'SET @CurrentTime = REPLACE(REPLACE(REPLACE(CONVERT(VARCHAR, GETDATE(), 120 ),''-'',''_''),'' '',''_''),'':'','''')'
@@ -26,8 +26,8 @@ WHILE @@FETCH_STATUS = 0
     BEGIN  
         SET @SQL = N'
         
---('+@DBNAME+'  ˝æ›ø‚≤Ó“Ï±∏∑›)
-SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_DiffBackup_'' + @CurrentTime+''.bak''  --°ÔDo ¬∑æ∂“™‘§œ»Ω®∫√
+--('+@DBNAME+' Êï∞ÊçÆÂ∫ìÂ∑ÆÂºÇÂ§á‰ªΩ)
+SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_DiffBackup_'' + @CurrentTime+''.bak''  --‚òÖDo Ë∑ØÂæÑË¶ÅÈ¢ÑÂÖàÂª∫Â•Ω
 BACKUP DATABASE [' + @DBNAME + ']
 TO DISK=@FileName WITH FORMAT ,COMPRESSION,DIFFERENTIAL
 '

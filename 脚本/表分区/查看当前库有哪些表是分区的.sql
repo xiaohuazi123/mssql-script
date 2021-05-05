@@ -1,13 +1,13 @@
 
 -- =============================================
 -- Create date: <2014/6/18>
--- Description: ²é¿´µ±Ç°¿âÓÐÄÄÐ©±íÊÇ·ÖÇø±í
+-- Description: æŸ¥çœ‹å½“å‰åº“æœ‰å“ªäº›è¡¨æ˜¯åˆ†åŒºè¡¨
 -- =============================================
 
 DECLARE @DBNAME NVARCHAR(MAX)
 DECLARE @SQL NVARCHAR(MAX)
 
-SET @DBNAME='dbname'  --¡ïDo
+SET @DBNAME='dbname'  --â˜…Do
 
 SET @SQL='SELECT  so.[name]
 FROM    ['+@DBNAME+'].sys.partitions sp ,

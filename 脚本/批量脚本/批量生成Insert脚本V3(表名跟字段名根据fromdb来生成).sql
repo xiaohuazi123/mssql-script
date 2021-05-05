@@ -3,10 +3,10 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ÅúÁ¿Éú³ÉInsert½Å±¾>
+-- Description: æ‰¹é‡ç”ŸæˆInsertè„šæœ¬>
 -- =============================================
 
-USE [dbname]  --¡ïDo ¸ù¾İfromdbÀ´Éú³É
+USE [dbname]  --â˜…Do æ ¹æ®fromdbæ¥ç”Ÿæˆ
 
 DECLARE @fromdb VARCHAR(100)
 DECLARE @todb VARCHAR(100)
@@ -30,7 +30,7 @@ insert into #MyTempTable
 select OBJECT_NAME(parent_object_id) 'name' from sys.objects where type='F' order by object_id
 
 
---ÓÎ±ê
+--æ¸¸æ ‡
 DECLARE @itemCur CURSOR
 SET @itemCur = CURSOR FOR 
     SELECT names from #MyTempTable
@@ -43,7 +43,7 @@ BEGIN
 	
 	SET @sql = ''
 
-	--»ñÈ¡±í×Ö¶Î
+	--è·å–è¡¨å­—æ®µ
 	SET @temsql = N'
 	BEGIN
 	SET @columnnamesOUT =''''
@@ -56,9 +56,9 @@ BEGIN
 	EXEC sp_executesql @temsql,N'@columnnamesOUT NVARCHAR(max) OUTPUT',@columnnamesOUT=@columnnames OUTPUT
 
 	PRINT ('--'+@tablename)
-	PRINT ('--±íÃû '''+@tablename+'''')
+	PRINT ('--è¡¨å '''+@tablename+'''')
 
-	--ÅĞ¶ÏÊÇ·ñÓĞ×ÔÔö×Ö¶Î
+	--åˆ¤æ–­æ˜¯å¦æœ‰è‡ªå¢å­—æ®µ
 	SET @temsql = N'
 	BEGIN
 	SET @isidentityOUT =''''
@@ -87,7 +87,7 @@ SELECT * FROM ['+@fromdb+'].[dbo].['+@tablename+']'
 SET IDENTITY_INSERT ['+@todb+'].[dbo].['+@tablename+'] OFF'
 	END
 
-	--·µ»ØSQL
+	--è¿”å›SQL
 	PRINT(@sql)PRINT('GO')+CHAR(13)
 
     FETCH NEXT FROM @itemCur INTO @tablename

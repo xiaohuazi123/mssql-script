@@ -2,8 +2,8 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ·ÇÓò»·¾³¾µÏñ×Ô¶¯Éú³ÉÄ£°å
---»·¾³£º·ÇÓò»·¾³
+-- Description: éåŸŸç¯å¢ƒé•œåƒè‡ªåŠ¨ç”Ÿæˆæ¨¡æ¿
+--ç¯å¢ƒï¼šéåŸŸç¯å¢ƒ
 -- =============================================
 
 
@@ -59,14 +59,14 @@ CREATE TABLE #BackupFileList
 
 SET NOCOUNT ON
 
-SET @masterip='172.31.21.10'  --¡ïDo Ö÷¿âip
-SET @mirrorip='172.31.38.85'   --¡ïDo ´Ó¿âip
-SET @witness='172.31.33.6'   --¡ïDo  ¼ûÖ¤ip
-SET @certpath='D:\DBBackup\'   --¡ïDo  Ö¤Êé´æ·ÅÂ·¾¶
-SET @Restorepath='D:\DBBackup\'   --¡ïDo ±¸·İ»¹Ô­Â·¾¶
-SET @DBName='testmirror'               --¡ïDo Òª×ö¾µÏñµÄÊı¾İ¿âÃû
-SET @MKPASSWORD='master@2015key123' --¡ïDo  Ö¤ÊéÃÜÂë
-SET @LOGINPWD='User_Pass@2015key123'  --¡ïDo  ¾µÏñµÇÂ¼ÓÃ»§ÃÜÂë
+SET @masterip='172.31.21.10'  --â˜…Do ä¸»åº“ip
+SET @mirrorip='172.31.38.85'   --â˜…Do ä»åº“ip
+SET @witness='172.31.33.6'   --â˜…Do  è§è¯ip
+SET @certpath='D:\DBBackup\'   --â˜…Do  è¯ä¹¦å­˜æ”¾è·¯å¾„
+SET @Restorepath='D:\DBBackup\'   --â˜…Do å¤‡ä»½è¿˜åŸè·¯å¾„
+SET @DBName='testmirror'               --â˜…Do è¦åšé•œåƒçš„æ•°æ®åº“å
+SET @MKPASSWORD='master@2015key123' --â˜…Do  è¯ä¹¦å¯†ç 
+SET @LOGINPWD='User_Pass@2015key123'  --â˜…Do  é•œåƒç™»å½•ç”¨æˆ·å¯†ç 
 
 
 
@@ -79,27 +79,27 @@ select @witnesstail= PARSENAME(@witness,2)+'_'+PARSENAME(@witness,1)
 --------------------------------------------------------------------------------
 DECLARE @stat NVARCHAR(MAX)
 
-SET  @stat='--×Ô¶¯Éú³É¾µÏñ½Å±¾V1 By huazai'
+SET  @stat='--è‡ªåŠ¨ç”Ÿæˆé•œåƒè„šæœ¬V1 By huazai'
 PRINT @stat
 PRINT CHAR(13)+CHAR(13)
 
 
 
 
-SET  @stat='--0¡¢Ê×ÏÈÈ·¶¨Òª×ö¾µÏñµÄ¿âµÄ»Ö¸´Ä£Ê½ÎªÍêÕû£¬ÓÃÒÔÏÂsqlÓï¾äÀ´²é¿´'+CHAR(13)
+SET  @stat='--0ã€é¦–å…ˆç¡®å®šè¦åšé•œåƒçš„åº“çš„æ¢å¤æ¨¡å¼ä¸ºå®Œæ•´ï¼Œç”¨ä»¥ä¸‹sqlè¯­å¥æ¥æŸ¥çœ‹'+CHAR(13)
 +'SELECT [name], [recovery_model_desc] FROM sys.[databases]'+CHAR(13)+CHAR(13)+CHAR(13)
 
-PRINT '--Ö÷£º'+@masterip
-PRINT '--±¸£º'+@mirrorip
-PRINT '--¼ûÖ¤£º'+@witness
+PRINT '--ä¸»ï¼š'+@masterip
+PRINT '--å¤‡ï¼š'+@mirrorip
+PRINT '--è§è¯ï¼š'+@witness
 PRINT CHAR(13)+CHAR(13)
 PRINT @stat
 
 --------------------------------------------------------------------
 PRINT '-- ============================================='
 
-SET  @stat='--1¡¢ ÔÚÖ÷·şÎñÆ÷ºÍ¾µÏñ·şÎñÆ÷ÉÏºÍ¼ûÖ¤·şÎñÆ÷ÉÏ´´½¨Master Key ¡¢´´½¨Ö¤Êé '+CHAR(13)
-+'--Ö÷»ú'+CHAR(13)
+SET  @stat='--1ã€ åœ¨ä¸»æœåŠ¡å™¨å’Œé•œåƒæœåŠ¡å™¨ä¸Šå’Œè§è¯æœåŠ¡å™¨ä¸Šåˆ›å»ºMaster Key ã€åˆ›å»ºè¯ä¹¦ '+CHAR(13)
++'--ä¸»æœº'+CHAR(13)
 +'USE master;
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = '''+@MKPASSWORD+''';'
 +'CREATE CERTIFICATE HOST_'
@@ -112,7 +112,7 @@ CREATE MASTER KEY ENCRYPTION BY PASSWORD = '''+@MKPASSWORD+''';'
 PRINT @stat
 
 
-SET  @stat='--±¸»ú'+CHAR(13)
+SET  @stat='--å¤‡æœº'+CHAR(13)
 +'USE master;
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = '''+@MKPASSWORD+''';'
 +'CREATE CERTIFICATE HOST_'
@@ -125,7 +125,7 @@ CREATE MASTER KEY ENCRYPTION BY PASSWORD = '''+@MKPASSWORD+''';'
 PRINT @stat
 
 
-SET  @stat='--¼ûÖ¤'+CHAR(13)
+SET  @stat='--è§è¯'+CHAR(13)
 +'USE master;
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = '''+@MKPASSWORD+''';'
 +'CREATE CERTIFICATE HOST_'
@@ -142,8 +142,8 @@ PRINT @stat
 PRINT '-- ============================================='
 
 
-SET  @stat='--2¡¢´´½¨¾µÏñ¶Ëµã£¬Í¬Ò»¸öÊµÀıÉÏÖ»ÄÜ´æÔÚÒ»¸ö¾µÏñ¶Ëµã  '+CHAR(13)
-+'--Ö÷»ú'+CHAR(13)
+SET  @stat='--2ã€åˆ›å»ºé•œåƒç«¯ç‚¹ï¼ŒåŒä¸€ä¸ªå®ä¾‹ä¸Šåªèƒ½å­˜åœ¨ä¸€ä¸ªé•œåƒç«¯ç‚¹  '+CHAR(13)
++'--ä¸»æœº'+CHAR(13)
 +'CREATE ENDPOINT Endpoint_Mirroring 
 STATE = STARTED 
 AS 
@@ -156,7 +156,7 @@ DATABASE_MIRRORING
 
 PRINT @stat
 
-SET  @stat='--±¸»ú'+CHAR(13)
+SET  @stat='--å¤‡æœº'+CHAR(13)
 +'CREATE ENDPOINT Endpoint_Mirroring 
 STATE = STARTED 
 AS 
@@ -170,7 +170,7 @@ DATABASE_MIRRORING
 PRINT @stat
 
 
-SET  @stat='--¼ûÖ¤'+CHAR(13)
+SET  @stat='--è§è¯'+CHAR(13)
 +'CREATE ENDPOINT Endpoint_Mirroring
 STATE = STARTED
 AS
@@ -188,15 +188,15 @@ PRINT @stat
 PRINT '-- ============================================='
 
 
-SET  @stat='--3¡¢±¸·İÖ¤Êé£¬È»ºó»¥»»  '+CHAR(13)
-+'--Ö÷»ú'+CHAR(13)
+SET  @stat='--3ã€å¤‡ä»½è¯ä¹¦ï¼Œç„¶åäº’æ¢  '+CHAR(13)
++'--ä¸»æœº'+CHAR(13)
 +'BACKUP CERTIFICATE HOST_'
 +@masteriptail
 +'_cert TO FILE = '+''''+@certpath+'\HOST_'+@masteriptail+'_cert.cer'';'+CHAR(13)
 
 PRINT @stat
 
-SET  @stat='--±¸»ú'+CHAR(13)
+SET  @stat='--å¤‡æœº'+CHAR(13)
 +'BACKUP CERTIFICATE HOST_'
 +@mirroriptail
 +'_cert TO FILE = '+''''+@certpath+'\HOST_'+@mirroriptail+'_cert.cer'';'+CHAR(13)
@@ -204,7 +204,7 @@ SET  @stat='--±¸»ú'+CHAR(13)
 PRINT @stat
 
 
-SET  @stat='--¼ûÖ¤'+CHAR(13)
+SET  @stat='--è§è¯'+CHAR(13)
 +'BACKUP CERTIFICATE HOST_'
 +@witnesstail
 +'_cert TO FILE = '+''''+@certpath+'\HOST_'+@witnesstail+'_cert.cer'';'+CHAR(13)+CHAR(13)+CHAR(13)
@@ -217,8 +217,8 @@ PRINT @stat
 PRINT '-- ============================================='
 
 
-SET  @stat='--4¡¢ĞÂÔöÖ÷±¸µÇÂ½ÓÃ»§  '+CHAR(13)
-+'--Ö÷»ú'+CHAR(13)
+SET  @stat='--4ã€æ–°å¢ä¸»å¤‡ç™»é™†ç”¨æˆ·  '+CHAR(13)
++'--ä¸»æœº'+CHAR(13)
 +'CREATE LOGIN DB_02_Mirror WITH PASSWORD = '''+@LOGINPWD+'''; 
 CREATE USER DB_02_Mirror FOR LOGIN DB_02_Mirror; 
 CREATE CERTIFICATE HOST_'
@@ -238,7 +238,7 @@ CREATE CERTIFICATE HOST_'
 PRINT @stat
 
 
-SET  @stat='--±¸»ú'+CHAR(13)
+SET  @stat='--å¤‡æœº'+CHAR(13)
 +'CREATE LOGIN DB_01_Mirror WITH PASSWORD = '''+@LOGINPWD+'''; 
 CREATE USER DB_01_Mirror FOR LOGIN DB_01_Mirror; 
 CREATE CERTIFICATE HOST_'
@@ -258,7 +258,7 @@ CREATE CERTIFICATE HOST_'
 PRINT @stat
 
 
-SET  @stat='--¼ûÖ¤'+CHAR(13)
+SET  @stat='--è§è¯'+CHAR(13)
 +'CREATE LOGIN DB_01_Mirror WITH PASSWORD = '''+@LOGINPWD+'''; 
 CREATE USER DB_01_Mirror FOR LOGIN DB_01_Mirror; 
 CREATE CERTIFICATE HOST_'
@@ -283,24 +283,24 @@ PRINT '-- ============================================='
 
 
 
-SET  @stat='--5¡¢¸÷¸ö»úÆ÷¶¼¿ª·Å5022¶Ë¿Ú£¬²¢ÇÒÓÃtelnet²âÊÔ5022¶Ë¿ÚÊÇ·ñ¿ªÍ¨ ½«ÏÂÃæÈı¸ö½Å±¾¸÷×ÔÕ³Ìùµ½batÎÄ¼şÀï'+CHAR(13)
+SET  @stat='--5ã€å„ä¸ªæœºå™¨éƒ½å¼€æ”¾5022ç«¯å£ï¼Œå¹¶ä¸”ç”¨telnetæµ‹è¯•5022ç«¯å£æ˜¯å¦å¼€é€š å°†ä¸‹é¢ä¸‰ä¸ªè„šæœ¬å„è‡ªç²˜è´´åˆ°batæ–‡ä»¶é‡Œ'+CHAR(13)
 PRINT @stat
 
-SET  @stat='echo Ö÷¿â'+CHAR(13)
+SET  @stat='echo ä¸»åº“'+CHAR(13)
 +'telnet '+@mirrorip+' 5022'+CHAR(13)
 +'telnet '+@witness+' 5022'+CHAR(13)
 +'pause'
 
 PRINT @stat+CHAR(13)+CHAR(13)
 
-SET  @stat='echo ¾µÏñ¿â'+CHAR(13)
+SET  @stat='echo é•œåƒåº“'+CHAR(13)
 +'telnet '+@masterip+' 5022'+CHAR(13)
 +'telnet '+@witness+' 5022'+CHAR(13)
 +'pause'
 
 PRINT @stat+CHAR(13)+CHAR(13)
 
-SET  @stat='echo ¼ûÖ¤'+CHAR(13)
+SET  @stat='echo è§è¯'+CHAR(13)
 +'telnet '+@masterip+' 5022'+CHAR(13)
 +'telnet '+@mirrorip+' 5022'+CHAR(13)
 +'pause'
@@ -314,7 +314,7 @@ PRINT '-- ============================================='
 
 
 
-SET  @stat='--6¡¢±¸·İÊı¾İ¿â(ÍêÕû±¸·İ+ÊÂÎñÈÕÖ¾±¸·İ)'+CHAR(13)
+SET  @stat='--6ã€å¤‡ä»½æ•°æ®åº“(å®Œæ•´å¤‡ä»½+äº‹åŠ¡æ—¥å¿—å¤‡ä»½)'+CHAR(13)
 PRINT @stat
 
 SET  @stat='DECLARE @FileName NVARCHAR(MAX)'+CHAR(13)+CHAR(13)
@@ -322,7 +322,7 @@ SET  @stat='DECLARE @FileName NVARCHAR(MAX)'+CHAR(13)+CHAR(13)
 PRINT @stat
 
 
-SET  @stat='--('+@DBName+'Êı¾İ¿âÍêÕû±¸·İ)'+CHAR(13)
+SET  @stat='--('+@DBName+'æ•°æ®åº“å®Œæ•´å¤‡ä»½)'+CHAR(13)
 +'SET @FileName = ''D:\DBBackup\'+@DBName+'_FullBackup_1.bak''
 BACKUP DATABASE ['+@DBName+']
 TO DISK=@FileName WITH FORMAT ,COMPRESSION'+CHAR(13)+CHAR(13)
@@ -330,7 +330,7 @@ TO DISK=@FileName WITH FORMAT ,COMPRESSION'+CHAR(13)+CHAR(13)
 PRINT @stat
 
 
-SET  @stat='--('+@DBName+'Êı¾İ¿âÈÕÖ¾±¸·İ)'+CHAR(13)
+SET  @stat='--('+@DBName+'æ•°æ®åº“æ—¥å¿—å¤‡ä»½)'+CHAR(13)
 +'SET @FileName = ''D:\DBBackup\'+@DBName+'_logBackup_2.bak''
 BACKUP DATABASE ['+@DBName+']
 TO DISK=@FileName WITH FORMAT ,COMPRESSION'
@@ -342,7 +342,7 @@ PRINT @stat+CHAR(13)+CHAR(13)+CHAR(13)
 PRINT '-- ============================================='
 
 
-SET  @stat='--7¡¢»¹Ô­Êı¾İ¿â(Ö¸¶¨norecovery·½Ê½»¹Ô­)'+CHAR(13)
+SET  @stat='--7ã€è¿˜åŸæ•°æ®åº“(æŒ‡å®šnorecoveryæ–¹å¼è¿˜åŸ)'+CHAR(13)
 PRINT @stat
 
 SET  @Restorepath1=''
@@ -400,29 +400,29 @@ PRINT '-- ============================================='
 
 
 
-SET  @stat='--8¡¢Ôö¼Ó¾µÏñ»ï°é£¬ĞèÒªÏÈÔÚ±¸»úÉÏÖ´ĞĞ£¬ÔÙÖ´ĞĞÖ÷»ú£¬¾µÏñÅªºÃÖ®ºó£¬Ä¬ÈÏÎªÊÂÎñ°²È«µÈ¼¶ÎªFULL'+CHAR(13)
+SET  @stat='--8ã€å¢åŠ é•œåƒä¼™ä¼´ï¼Œéœ€è¦å…ˆåœ¨å¤‡æœºä¸Šæ‰§è¡Œï¼Œå†æ‰§è¡Œä¸»æœºï¼Œé•œåƒå¼„å¥½ä¹‹åï¼Œé»˜è®¤ä¸ºäº‹åŠ¡å®‰å…¨ç­‰çº§ä¸ºFULL'+CHAR(13)
 PRINT @stat
 
 
 
 
-SET  @stat='--±¸»úÉÏÖ´ĞĞ'+CHAR(13)
+SET  @stat='--å¤‡æœºä¸Šæ‰§è¡Œ'+CHAR(13)
 +'USE [master]
 GO
 
-ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@masterip+':5022'';  --Ö÷»ú·şÎñÆ÷µÄip'+CHAR(13)+CHAR(13)
+ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@masterip+':5022'';  --ä¸»æœºæœåŠ¡å™¨çš„ip'+CHAR(13)+CHAR(13)
 
 PRINT @stat
 
 
-SET  @stat='--Ö÷»úÉÏÖ´ĞĞ'+CHAR(13)
+SET  @stat='--ä¸»æœºä¸Šæ‰§è¡Œ'+CHAR(13)
 +'USE [master]
 GO
 
-ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@mirrorip+':5022'';  --¾µÏñ·şÎñÆ÷µÄip'+CHAR(13)+CHAR(13)
+ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@mirrorip+':5022'';  --é•œåƒæœåŠ¡å™¨çš„ip'+CHAR(13)+CHAR(13)
 
 PRINT @stat
 
-SET  @stat='ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@witness+':5022'';  --¼ûÖ¤·şÎñÆ÷µÄip'+CHAR(13)+CHAR(13)
+SET  @stat='ALTER DATABASE ['+@DBName+'] SET PARTNER = '''+'TCP://'+@witness+':5022'';  --è§è¯æœåŠ¡å™¨çš„ip'+CHAR(13)+CHAR(13)
 
 PRINT @stat

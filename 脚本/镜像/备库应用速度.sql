@@ -3,11 +3,15 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: 备库的应用速度
+-- Description: 澶囧簱鐨勫簲鐢ㄩ�熷害
 -- =============================================
 
 
-BEGIN TRANDECLARE @value BIGINTDECLARE @value2 BIGINTSELECT  @value = CONVERT
+BEGIN TRAN
+DECLARE @value BIGINT
+DECLARE @value2 BIGINT
+SELECT  @value = CONVERT
+
 (BIGINT, cntr_value) * 1. / 1024 / 1024
 FROM    sys.dm_os_performance_counters
 WHERE   counter_name = 'Redo Bytes/sec'

@@ -1,7 +1,7 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ·Ö¸î±¸·İÎÄ¼ş£¬·Ö¿ªÁ½¸ö»ò¶à¸öTO DISK£¬±¸·İÎÄ¼ş¾Í»á·Ö¿ª¶à¸ö
+-- Description: åˆ†å‰²å¤‡ä»½æ–‡ä»¶ï¼Œåˆ†å¼€ä¸¤ä¸ªæˆ–å¤šä¸ªTO DISKï¼Œå¤‡ä»½æ–‡ä»¶å°±ä¼šåˆ†å¼€å¤šä¸ª
 -- =============================================
 
 
@@ -10,7 +10,7 @@ DECLARE @CurrentTime VARCHAR(50), @FileName VARCHAR(200),@FileName2 VARCHAR(200)
 SET @CurrentTime = REPLACE(REPLACE(REPLACE(CONVERT(VARCHAR, GETDATE(), 120 ),'-','_'),' ','_'),':','')
 
         
---(Temp2 Êı¾İ¿âÍêÕû±¸·İ)
+--(Temp2 æ•°æ®åº“å®Œæ•´å¤‡ä»½)
 SET @FileName = 'D:\Temp2_FullBackup_Partial1_' + @CurrentTime+'.bak'
 SET @FileName2 = 'D:\Temp2_FullBackup_Partial2_' + @CurrentTime+'.bak'
 

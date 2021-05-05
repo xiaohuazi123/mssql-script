@@ -1,11 +1,11 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: �Զ������������ݿ��ļ��ű�
+-- Description: 自动生成收缩数据库文件脚本
 -- =============================================
 
 
-USE [dbname]   --��Do ����Ҫ���������ݿ�
+USE [dbname]   --★Do 设置要收缩的数据库
 GO
 SET nocount ON
 CREATE TABLE #Data
@@ -54,23 +54,23 @@ ORDER BY [ID]
 
 
 DECLARE @i INT
- --����ѭ��
+ --用于循环
 SET @i = 1
 DECLARE @dbname NVARCHAR(100)
 DECLARE @filegroup NVARCHAR(200)
 DECLARE @filename NVARCHAR(200)
 DECLARE @fileid NVARCHAR(10)
 DECLARE @totalMB DECIMAL(20, 1)
- --�ܴ�С
+ --总大小
 DECLARE @UsedMB DECIMAL(20, 1)
-  --��ʹ�ô�С
+  --已使用大小
 DECLARE @CanshrinkSize NVARCHAR(100)
- --���������Ĵ�С
+ --可收缩到的大小
 
 DECLARE @COUNT INT
-  --����#Data����������ֵ
+  --保存#Data表的总行数值
 
---��ȡ#Data����������
+--获取#Data表的总行数
 SELECT  @COUNT = COUNT(*)
 FROM    #Data
 
@@ -88,12 +88,12 @@ WHILE @i <= @COUNT
                 @UsedMB = UsedExtents * 64. / 1024
         FROM    #Data
         WHERE   [ID] = @i
-        PRINT '--�ļ���:' + @filegroup + ';�ļ�id:' + @fileid + ';�ܴ�С:'
-            + CAST(@totalMB AS VARCHAR(100)) + 'MB;��ʹ�ô�С:'
+        PRINT '--文件组:' + @filegroup + ';文件id:' + @fileid + ';总大小:'
+            + CAST(@totalMB AS VARCHAR(100)) + 'MB;已使用大小:'
             + CAST(@UsedMB AS VARCHAR(100)) + 'MB;'
         SET @CanshrinkSize = CAST(CAST(@UsedMB + 1024 AS INT) AS NVARCHAR(100))
         PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSize + ')'
-            + '   --����������ֵΪ��ʹ�õĴ�С��1G' + CHAR(10)
+            + '   --可收缩到的值为已使用的大小加1G' + CHAR(10)
         SET @i = @i + 1
     END
 

@@ -1,11 +1,11 @@
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ²éÑ¯±¸·İÎÄ¼şĞÅÏ¢£¬±¸·İÎÄ¼şÎª£ºbak »ò trn
+-- Description: æŸ¥è¯¢å¤‡ä»½æ–‡ä»¶ä¿¡æ¯ï¼Œå¤‡ä»½æ–‡ä»¶ä¸ºï¼šbak æˆ– trn
 -- =============================================
 
 
 declare @DbBackFile nvarchar(4000)
-set @DbBackFile=N'D:\ÎÄ¼ş±¸·İ\databases\testDB_log.trn' 
+set @DbBackFile=N'D:\æ–‡ä»¶å¤‡ä»½\databases\testDB_log.trn' 
 
 RESTORE LABELONLY
 FROM DISK = @DbBackFile

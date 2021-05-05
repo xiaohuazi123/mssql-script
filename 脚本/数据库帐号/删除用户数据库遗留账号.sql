@@ -2,15 +2,15 @@
 
 -- =============================================
 -- Create date: <2015/4/18>
--- Description: É¾³ıËùÓĞÊı¾İ¿âµÄÓÃ»§ÒÅÁôÕËºÅ
--- ¹¦ÄÜ£º
--- @dbsauser ÒªÉ¾³ıµÄÊı¾İ¿âÓÃ»§Ãû
+-- Description: åˆ é™¤æ‰€æœ‰æ•°æ®åº“çš„ç”¨æˆ·é—ç•™è´¦å·
+-- åŠŸèƒ½ï¼š
+-- @dbsauser è¦åˆ é™¤çš„æ•°æ®åº“ç”¨æˆ·å
 -- =============================================
 
 
 
 
--- »·¾³±äÁ¿
+-- ç¯å¢ƒå˜é‡
 SET NOCOUNT ON
 
 DECLARE @sql		NVARCHAR(4000)
@@ -24,17 +24,17 @@ DECLARE @bkdbname	SYSNAME
 DECLARE @dbnamePrefix		NVARCHAR(8)
 
 
--- ³õÊ¼±äÁ¿
+-- åˆå§‹å˜é‡
 SET @dbsauser='AWMntDBUser'
 
 
 
--- ÁĞ±íËùÓĞÊı¾İ¿â
+-- åˆ—è¡¨æ‰€æœ‰æ•°æ®åº“
 declare tb cursor local for
 select [name] from master..sysdatabases where [name] not in('master','tempdb','model','msdb')
 ORDER BY [name]
 
--- ²éÑ¯Êı¾İ¿âÏÂÓÃ»§Ãû
+-- æŸ¥è¯¢æ•°æ®åº“ä¸‹ç”¨æˆ·å
 open tb
 fetch next from tb into @dbname
 while @@fetch_status=0

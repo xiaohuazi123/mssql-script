@@ -1,6 +1,6 @@
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: ²éÑ¯Ö´ĞĞÊ±¼ä¹ı³¤µÄ×÷Òµ
+-- Description: æŸ¥è¯¢æ‰§è¡Œæ—¶é—´è¿‡é•¿çš„ä½œä¸š
 -- =============================================
 
 use msdb
@@ -22,7 +22,7 @@ join
     WHERE step_id = 0 AND run_status = 1
     GROUP BY job_id) ja 
     ON sj.job_id = ja.job_id
-WHERE sja.start_execution_date IS NOT NULL --×÷ÒµÓĞ¿ªÊ¼
-   AND sja.stop_execution_date IS NULL --×÷ÒµÃ»½áÊø
-   AND sja.start_execution_date>DATEADD(DAY,-2,GETDATE()) --×÷Òµ2ÌìÄÚ¿ªÊ¼
-  -- AND DATEDIFF (SECOND ,sja.start_execution_date,GETDATE() )>ja.AvgRuntimeOnSucceed *1.5 --×÷ÒµÖ´ĞĞÊ±¼ä±ÈÀúÊ·Æ½¾ùÊ±¼ä³¬ÁË50%"
+WHERE sja.start_execution_date IS NOT NULL --ä½œä¸šæœ‰å¼€å§‹
+   AND sja.stop_execution_date IS NULL --ä½œä¸šæ²¡ç»“æŸ
+   AND sja.start_execution_date>DATEADD(DAY,-2,GETDATE()) --ä½œä¸š2å¤©å†…å¼€å§‹
+  -- AND DATEDIFF (SECOND ,sja.start_execution_date,GETDATE() )>ja.AvgRuntimeOnSucceed *1.5 --ä½œä¸šæ‰§è¡Œæ—¶é—´æ¯”å†å²å¹³å‡æ—¶é—´è¶…äº†50%"

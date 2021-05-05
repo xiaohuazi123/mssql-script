@@ -3,14 +3,14 @@ GO
 
 CREATE DATABASE [MonitorElapsedHighSQL]
 GO
---½¨±í
+--å»ºè¡¨
 
 USE [MonitorElapsedHighSQL]
 GO
 
 
- --1¡¢±í[SQLCountStatisticsByDay]
-  --×¥È¡µ½µÄsqlÓï¾äÊıÁ¿
+ --1ã€è¡¨[SQLCountStatisticsByDay]
+  --æŠ“å–åˆ°çš„sqlè¯­å¥æ•°é‡
 CREATE TABLE [dbo].[SQLCountStatisticsByDay]
     (
       id INT IDENTITY(1, 1)  PRIMARY KEY ,
@@ -24,8 +24,8 @@ GO
 
 
 
- --2¡¢±í[MostElapsedStatisticsByDay]
- --Ã¿Ìõ²»Í¬µÄsqlºÄÊ±×î¶à
+ --2ã€è¡¨[MostElapsedStatisticsByDay]
+ --æ¯æ¡ä¸åŒçš„sqlè€—æ—¶æœ€å¤š
 CREATE TABLE [dbo].[MostElapsedStatisticsByDay]
     (
       id INT IDENTITY(1, 1)
@@ -46,8 +46,8 @@ CREATE INDEX [Idx_MostElapsedStatisticsByDay_gettime] ON [MonitorElapsedHighSQL]
 GO
 
 
- --3¡¢±í[MostIOReadStatisticsByDay]
---Ã¿Ìõ²»Í¬µÄsqlµÄIOread×î¶à
+ --3ã€è¡¨[MostIOReadStatisticsByDay]
+--æ¯æ¡ä¸åŒçš„sqlçš„IOreadæœ€å¤š
 CREATE TABLE [dbo].[MostIOReadStatisticsByDay]
     (
       id INT IDENTITY(1, 1)
@@ -66,8 +66,8 @@ CREATE INDEX [Idx_MostIOReadStatisticsByDay_gettime] ON [MonitorElapsedHighSQL].
 GO
 
 
- --4¡¢±í[MostIOWriteStatisticsByDay]
---Ã¿Ìõ²»Í¬µÄsqlµÄIOwrite×î¶à
+ --4ã€è¡¨[MostIOWriteStatisticsByDay]
+--æ¯æ¡ä¸åŒçš„sqlçš„IOwriteæœ€å¤š
 CREATE TABLE [dbo].[MostIOWriteStatisticsByDay]
     (
       id INT IDENTITY(1, 1)
@@ -86,8 +86,8 @@ CREATE INDEX [Idx_MostIOWriteStatisticsByDay_gettime] ON [MonitorElapsedHighSQL]
 GO
 
 
- --5¡¢±í[sp_executesqlCountStatisticsByDay]
---Ê¹ÓÃsp_executesqlµÄsqlÓĞ¶àÉÙÌõ
+ --5ã€è¡¨[sp_executesqlCountStatisticsByDay]
+--ä½¿ç”¨sp_executesqlçš„sqlæœ‰å¤šå°‘æ¡
 CREATE TABLE [dbo].[sp_executesqlCountStatisticsByDay]
     (
       id INT IDENTITY(1, 1)

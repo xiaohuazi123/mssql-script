@@ -1,14 +1,14 @@
 
 -- =============================================
 -- Create date: <2014/4/18>
--- Description: еЗа©хуж╬╠╦╥щ©Б
+-- Description: Ф┴╧И┤▐Ф≈╔Е©≈Е╓┤Д╩╫Е╨⌠
 -- =============================================
 
 DECLARE @DBNAME NVARCHAR(100)
 DECLARE @DriveName NVARCHAR(100)
 DECLARE @SQL NVARCHAR(MAX)
 
-SET @DriveName='E'  --║ОDo ╠╦╥щ╣╫╣дел╥Ш
+SET @DriveName='E'  --Б≤┘Do Е╓┤Д╩╫Е┬╟Г └Г⌡≤Г╛╕
 
 PRINT 'DECLARE @CurrentTime VARCHAR(50), @FileName VARCHAR(200)'+CHAR(10)+
 'SET @CurrentTime = REPLACE(REPLACE(REPLACE(CONVERT(VARCHAR, GETDATE(), 120 ),''-'',''_''),'' '',''_''),'':'','''')'
@@ -28,8 +28,8 @@ WHILE @@FETCH_STATUS = 0
     BEGIN  
         SET @SQL = N'
         
---('+@DBNAME+' йЩ╬щ©Бхуж╬╠╦╥щ)
-SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_LogBackup_'' + @CurrentTime+''.bak''  --║ОDo б╥╬╤р╙т╓ох╫╗╨ц
+--('+@DBNAME+' Ф∙╟Ф█╝Е╨⌠Ф≈╔Е©≈Е╓┤Д╩╫)
+SET @FileName = '''+@DriveName+':\DBBackup\' + @DBNAME + '_LogBackup_'' + @CurrentTime+''.bak''  --Б≤┘Do Х╥╞Е╬└Х╕│И╒└Е┘┬Е╩╨Е╔╫
 BACKUP LOG [' + @DBNAME + ']
 TO DISK=@FileName WITH FORMAT ,COMPRESSION,stats=5
 '
