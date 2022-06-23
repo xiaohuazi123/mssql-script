@@ -10,12 +10,12 @@ GO
 SET nocount ON
 CREATE TABLE #Data
     (
-      ID INT IDENTITY(1, 1) ,
+      ID BIGINT IDENTITY(1, 1) ,
       DBNAME NVARCHAR(30) ,
-      FileID INT NOT NULL ,
-      [FileGroupId] INT NOT NULL ,
-      TotalExtents INT NOT NULL ,
-      UsedExtents INT NOT NULL ,
+      FileID BIGINT NOT NULL ,
+      [FileGroupId] BIGINT NOT NULL ,
+      TotalExtents BIGINT NOT NULL ,
+      UsedExtents BIGINT NOT NULL ,
       [FileName] SYSNAME NOT NULL ,
       [FilePath] NVARCHAR(MAX) NOT NULL ,
       [FileGroup] NVARCHAR(MAX) NULL
@@ -29,8 +29,7 @@ INSERT  #Data
           [FileName] ,
           [FilePath]
         )
-        EXEC ( 'DBCC showfilestats WITH NO_INFOMSGS'
-            )
+        EXEC ( 'DBCC showfilestats WITH NO_INFOMSGS')
 
 UPDATE  #Data
 SET     #Data.FileGroup = sysfilegroups.groupname ,
@@ -53,29 +52,23 @@ ORDER BY [ID]
 
 
 
-DECLARE @i INT
- --用于循环
+DECLARE @i BIGINT   --用于循环
 SET @i = 1
 DECLARE @dbname NVARCHAR(100)
 DECLARE @filegroup NVARCHAR(200)
 DECLARE @filename NVARCHAR(200)
 DECLARE @fileid NVARCHAR(10)
-DECLARE @totalMB DECIMAL(20, 1)
- --总大小
-DECLARE @UsedMB DECIMAL(20, 1)
-  --已使用大小
-DECLARE @CanshrinkSize NVARCHAR(100)
- --可收缩到的大小
+DECLARE @totalMB DECIMAL(20, 1)   --总大小
+DECLARE @UsedMB DECIMAL(20, 1)    --已使用大小
+DECLARE @CanshrinkSizeStr NVARCHAR(100)   --可收缩到的大小
 
-DECLARE @COUNT INT
-  --保存#Data表的总行数值
+DECLARE @COUNT BIGINT    --保存#Data表的总行数值
 
---获取#Data表的总行数
-SELECT  @COUNT = COUNT(*)
+
+SELECT  @COUNT = COUNT(*)  --获取#Data表的总行数
 FROM    #Data
 
-SELECT TOP 1
-        @dbname = [DBNAME]
+SELECT TOP 1     @dbname = [DBNAME]
 FROM    [#Data] 
 PRINT 'USE [' + @dbname+']'
 PRINT 'GO'
@@ -91,10 +84,35 @@ WHILE @i <= @COUNT
         PRINT '--文件组:' + @filegroup + ';文件id:' + @fileid + ';总大小:'
             + CAST(@totalMB AS VARCHAR(100)) + 'MB;已使用大小:'
             + CAST(@UsedMB AS VARCHAR(100)) + 'MB;'
-        SET @CanshrinkSize = CAST(CAST(@UsedMB + 1024 AS INT) AS NVARCHAR(100))
-        PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSize + ')'
-            + '   --可收缩到的值为已使用的大小加1G' + CHAR(10)
+			
+			
+        DECLARE @UsedMBINT  BIGINT 
+		SET @UsedMBINT = CAST(@UsedMB  AS BIGINT)   
+		
+		DECLARE @CanshrinkSize BIGINT  --用于循环
+		SET @CanshrinkSize =  CAST(@totalMB AS BIGINT)
+		
+        
+		WHILE @CanshrinkSize > @UsedMBINT   --循环收缩，直到小于已使用大小为止
+            BEGIN
+				    SET @CanshrinkSize = @CanshrinkSize - 10240  --循环收缩，每次收缩10GB
+				    IF  @CanshrinkSize > @UsedMBINT 
+				    BEGIN
+					    SET @CanshrinkSizeStr = CAST(@CanshrinkSize  AS NVARCHAR(100))
+                        PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ')'+ '    --每次收缩10GB' 
+				        PRINT 'GO'			
+				    END
+		    END
+		 
+		--SET @CanshrinkSizeStr = CAST(CAST(@UsedMB + 1024 AS BIGINT) AS NVARCHAR(100))
+        --PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ')'   + '   --可收缩到的值为已使用的大小加1G' + CHAR(10)
         SET @i = @i + 1
+		PRINT CHAR(10)	
+
     END
 
 DROP TABLE #Data
+
+
+
+
