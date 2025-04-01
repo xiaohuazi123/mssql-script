@@ -99,13 +99,13 @@ WHILE @i <= @COUNT
 				    IF  @CanshrinkSize > @UsedMBINT 
 				    BEGIN
 					    SET @CanshrinkSizeStr = CAST(@CanshrinkSize  AS NVARCHAR(100))
-                        PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ')'+ '    --每次收缩10GB' 
+                        PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ') WITH WAIT_AT_LOW_PRIORITY (ABORT_AFTER_WAIT = SELF);'+ '    --每次收缩10GB，WAIT_AT_LOW_PRIORITY为SQL2022新增参数' 
 				        PRINT 'GO'			
 				    END
 		    END
 		 
 		--SET @CanshrinkSizeStr = CAST(CAST(@UsedMB + 1024 AS BIGINT) AS NVARCHAR(100))
-        --PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ')'   + '   --可收缩到的值为已使用的大小加1G' + CHAR(10)
+        --PRINT 'DBCC SHRINKFILE ([' + @filename + '],' + @CanshrinkSizeStr + ') WITH WAIT_AT_LOW_PRIORITY (ABORT_AFTER_WAIT = SELF);'   + '   --可收缩到的值为已使用的大小加1G' + CHAR(10)
         SET @i = @i + 1
 		PRINT CHAR(10)	
 
