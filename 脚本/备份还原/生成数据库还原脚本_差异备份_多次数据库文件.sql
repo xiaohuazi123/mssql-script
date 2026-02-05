@@ -94,7 +94,7 @@ IF @IsRestoreSingleDB = 1
 		-- 单个数据库
 		INSERT INTO @tbDatabases ( [name] ) SELECT   [name]     FROM     master..sysdatabases
 					WHERE    [name] NOT IN ( 'master', 'tempdb', 'model', 'msdb' )
-							 AND [name] = @DBNamerestore
+							 AND [name] = @DBNamerestore  AND status = 65536
 					ORDER BY [name];
     END;
 ELSE
