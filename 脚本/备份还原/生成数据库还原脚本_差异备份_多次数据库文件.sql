@@ -102,7 +102,7 @@ ELSE
         -- 列表所有数据库
         INSERT INTO @tbDatabases ( [name] ) SELECT   [name]   FROM     master..sysdatabases
                     WHERE    [name] NOT IN ( 'master', 'tempdb', 'model', 'msdb' )
-                             AND [name] LIKE @DbNamePrefix + '%'
+                             AND [name] LIKE @DbNamePrefix + '%' AND status = 65536
                     ORDER BY [name];
     END;
 
